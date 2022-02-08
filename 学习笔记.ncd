@@ -1,0 +1,93 @@
+<!DOCTYPE NoteCase-File>
+<!--LastNote:1-->
+<HTML>
+<HEAD>
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta name="generator" content="NoteCase 1.9.8">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<DL>
+<DT>笔记格式说明</DT>
+<!--property:date_created=1644308705-->
+<!--property:date_modified=1644308809-->
+<DD>
+加粗的是重点的内容<BR>
+例子：<b>重要的内容<BR>
+<BR>
+</b>下划线的是不理解的内容<BR>
+例子：<u>不理解的内容</u>
+</DD>
+<DT>Effective Java</DT>
+<!--property:date_created=1644300037-->
+<!--property:date_modified=1644300736-->
+<!--property:expanded-->
+<DD>
+Arnold05 sestoft05<BR>
+<BR>
+http://java.sun.com/docs/books/effective<DL>
+<DT>创建和销毁对象</DT>
+<!--property:date_created=1644301547-->
+<!--property:date_modified=1644301547-->
+<!--property:expanded-->
+<DD>
+<DL>
+<DT>第一条：考虑静态工厂方法代替构造器</DT>
+<!--property:date_created=1644301605-->
+<!--property:date_modified=1644312064-->
+<DD>
+类可以提供一个公有的静态工厂方法，它只是一个返回类的实例的静态方法。<BR>
+<BR>
+下面是一个来自 Boolean （基本类型 boolean的包装类）的简单示例。这个方法将boolean基本类型值转换成一个 Boolean对象引用<BR>
+<BR>
+public static Boolean valueOf(boolean b){<BR>
+	return b ? Boolean.TRUE : Boolean.FAlSE;<BR>
+}<BR>
+<BR>
+<b>静态工厂方法与构造器不同的第一大优势在于，它们有名称。<BR>
+<BR>
+</b>如果构造器的参数本身没有确切地描述正被返回的对象，那么具有适当名称的静态工厂会更容易使用，产生的客户端代码也更容易于阅读。<BR>
+例如，构在器 BigInteger (int, int, Random) 返回的 BigInteger 可能为素数，如果用名为 BigInteger.probablePrime 的今天工厂方法<BR>
+来表示，显然更为清楚。<BR>
+<BR>
+<b>静态工厂方法与构造器不同的第二大优势在于，不必再每次调用它们的时候都创建一个新的对象<BR>
+<BR>
+</b>这使得不可变类可以使用预先构建好的实例，或者将构建好的实例缓存起来，进行重复利用，从而避免不必要的重复对象。 Boolean.valueOf<BR>
+(boolean) 方法说明了这项技术；它从来不创建对象。这种方法类似于 Flyweight模式（享元模式）。如果程序经常创建相同的对象，并且创建对象的代价<BR>
+很高，则这项技术可以极大地提升性能。<BR>
+<BR>
+静态工厂方法能够为重复的调用返回相同对象，这样有助于类总能严格控制在某个时刻哪些实例应该存在。这种类被称为实例受控的类 （instance-controlled）。<BR>
+编写实例受控的类有几个原因。实例受控使得类可以确保它是一个 Singleton 或者是不可实例化的。它还使得不可变的类可以确保不会存在两个相等的实例，即当<BR>
+且仅当a==b的时候才有 a.equals(b)为ture。如果类保证了这一点，它的客户端就可以使用==操作符来代替equals（Object）方法，这样可以提升性能。枚举（enum）<BR>
+类型保证了一点。<BR>
+<BR>
+<b>静态工厂方法与构造器不用的第三大优势在于，它们可以返回原返回类型的任何子类型的对象<BR>
+<BR>
+</b>这样我们在选择返回对象的类时就有了更大的灵活性。<BR>
+<BR>
+这种灵活性的一种应用是，API可以返回对象，同时又不会使对象的类变成公有的。以这种方式隐藏实现类的API变得非常简洁。这项技术适用于接口框架（interface-based<BR>
+framework），因为在这种框架中，接口为静态工厂方法提供了自然返回类型。接口不能有静态方法，因此按照惯例，接口Type的静态工厂方法被放在名为Types的不可实例<BR>
+话的类中。<BR>
+<BR>
+例如，Java Collection Framework 的集合接口有32个便利实现，分别提供了不可修改的集合丶同步集合等等。几乎所有这些实现都通过静态工厂方法在一个不可实例化的类<BR>
+（java.util.Collection）中导出。所有返回对象的类都是非公有的。<BR>
+<BR>
+现在的 Collections Framework API 比导出32个独立公有类的那种实现方式要小得多，每种便利实现都对应一个类。这不仅仅只指API数量上的减少，也是概念意义上的减少。<BR>
+用户知道，被返回的对象是有相关接口精确指定的，所有他们不需要阅读有关的类文档。<u>使用这种静态工厂方法时，甚至要求客户端通过接口来引用被返回的对象，而不是通过<BR>
+它的实现类来引用被返回的对象，这是一种良好的习惯。<BR>
+<BR>
+<BR>
+<BR>
+</u><BR>
+<BR>
+
+</DD>
+</DL>
+
+</DD>
+</DL>
+
+</DD>
+</DL>
+</BODY>
+</HTML>
